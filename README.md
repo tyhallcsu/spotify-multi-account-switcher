@@ -1,6 +1,12 @@
 # Spotify Multi-Account Switcher for macOS
 
-🎵 Seamlessly switch between multiple Spotify accounts on macOS without re-entering credentials.
+<div align="center">
+  <img src="spotify_account_switcher.png" alt="Spotify Multi-Account Switcher" width="100%" />
+</div>
+
+<div align="center">
+  <h3>🎵 Seamlessly switch between multiple Spotify accounts on macOS without re-entering credentials</h3>
+</div>
 
 ## Why This Tool?
 
