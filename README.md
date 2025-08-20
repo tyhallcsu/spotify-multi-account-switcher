@@ -1,184 +1,184 @@
-# Spotify Multi-Account Switcher & SpotX Installer for macOS
+# Spotify Multi-Account Switcher for macOS
 
-A collection of bash scripts to manage multiple Spotify accounts and install SpotX modifications on macOS.
+🎵 Seamlessly switch between multiple Spotify accounts on macOS without re-entering credentials.
 
-## Features
+## Why This Tool?
 
-- **Multi-Account Switcher**: Seamlessly switch between multiple Spotify accounts without re-entering credentials
-- **SpotX Integration**: Install SpotX modifications with ad blocking, developer mode, and experimental features
-- **Profile Management**: Keep separate profiles for each account with preserved login tokens and preferences
-- **Cache Management**: Automatic cleanup of volatile caches during account switches
+Spotify doesn't natively support multiple account switching on desktop. This tool solves that by maintaining separate profile folders for each account, preserving login tokens, preferences, and history.
 
-## Tested Environment
+## ✨ Features
+
+- **Zero Password Storage** - Uses Spotify's existing login tokens
+- **Instant Switching** - One command switches accounts and launches Spotify  
+- **Preserved State** - Keeps playlists, preferences, and history separate
+- **Cache Management** - Automatically clears volatile caches during switches
+- **Backup Safe** - Non-destructive profile management
+
+## 🚀 Quick Start
+
+### Installation
+
+```bash
+# Download the script
+curl -O https://raw.githubusercontent.com/tyhallcsu/spotify-multi-account-switcher/main/spotify-switcher.sh
+
+# Make it executable
+chmod +x spotify-switcher.sh
+
+# Optional: Move to your PATH for global access
+mv spotify-switcher.sh /usr/local/bin/spotify-switcher
+```
+
+### First-Time Setup
+
+1. **Log into your first Spotify account** and quit Spotify
+2. **Save it as a profile:**
+   ```bash
+   ./spotify-switcher.sh init work
+   ```
+
+3. **Log into your second account** and quit Spotify  
+4. **Save that profile:**
+   ```bash
+   ./spotify-switcher.sh init personal
+   ```
+
+### Daily Usage
+
+```bash
+# Switch to work account
+./spotify-switcher.sh switch work
+
+# Switch to personal account  
+./spotify-switcher.sh switch personal
+
+# See all your profiles
+./spotify-switcher.sh list
+```
+
+## 📖 Complete Usage
+
+```bash
+spotify-switcher.sh <command> [options]
+
+Commands:
+  list                    Show all saved profiles
+  init <name>            Save current Spotify state as new profile
+  switch <name>          Switch to profile and launch Spotify
+  remove <name>          Delete a profile (with confirmation)
+  open                   Open profiles folder in Finder
+  help                   Show this usage information
+```
+
+## 🛠 Advanced Usage
+
+### Create Desktop Launchers
+
+For one-click switching from Finder or Dock:
+
+```bash
+# Create launcher scripts
+echo './spotify-switcher.sh switch work' > ~/Desktop/Spotify-Work.command
+echo './spotify-switcher.sh switch personal' > ~/Desktop/Spotify-Personal.command
+
+# Make them executable
+chmod +x ~/Desktop/Spotify-*.command
+```
+
+Double-click to switch accounts instantly.
+
+### Add to Shell Profile
+
+Add to your `~/.zshrc` or `~/.bash_profile`:
+
+```bash
+alias spotify-work='spotify-switcher.sh switch work'
+alias spotify-personal='spotify-switcher.sh switch personal'
+alias spotify-list='spotify-switcher.sh list'
+```
+
+## ⚙️ How It Works
+
+The switcher maintains separate copies of your Spotify application support folder for each account:
+
+```
+~/Library/Application Support/
+├── Spotify/                    # Active profile
+└── Spotify-Profiles/
+    ├── work/                   # Work account data
+    ├── personal/               # Personal account data  
+    └── family/                 # Family account data
+```
+
+**On each switch:**
+1. Kills any running Spotify processes
+2. Swaps the active profile using `rsync` (fast, preserves permissions)
+3. Clears volatile caches (GPU cache, browser cache, etc.)
+4. Launches Spotify with the selected profile
+
+**Preserved per profile:**
+- Login tokens (no re-authentication needed)
+- Downloaded music and cache
+- Playlists and library
+- Audio quality settings
+- UI preferences and window state
+
+## 🔧 Troubleshooting
+
+<details>
+<summary><strong>"Spotify support folder not found"</strong></summary>
+
+Launch Spotify once, log in completely, then quit and retry the `init` command.
+</details>
+
+<details>
+<summary><strong>UI crashes or graphics issues</strong></summary>
+
+Uncomment this line in the script to disable GPU acceleration:
+```bash
+# open -a "$SPOTIFY_APP" --args --disable-gpu && exit 0
+```
+</details>
+
+<details>
+<summary><strong>Profiles not switching properly</strong></summary>
+
+- Ensure Spotify is completely quit before switching
+- Check that profile exists: `./spotify-switcher.sh list`
+- Manually clear caches: `rm -rf ~/Library/Caches/com.spotify.client`
+</details>
+
+<details>
+<summary><strong>Permission errors</strong></summary>
+
+Make sure the script is executable and you have write access to `~/Library/Application Support/`
+</details>
+
+## 🖥 Tested Environment
 
 - **MacBook Pro** 16-inch, 2023
-- **Chip** Apple M2 Max
+- **Chip** Apple M2 Max  
 - **Memory** 96 GB
 - **macOS** Sequoia 15.6
 
-## Scripts Included
+Should work on all modern macOS versions with Intel or Apple Silicon.
 
-### 1. Multi-Account Switcher (`spotify-account-switcher.sh`)
+## 🤝 Contributing
 
-Manages separate Spotify profile folders and provides one-command switching between accounts.
+Issues and pull requests welcome! Please:
 
-**What it does:**
-- Keeps a snapshot of your Spotify support folder per account
-- One command to switch: kills Spotify, swaps profile, clears caches, launches
-- No passwords stored—uses Spotify's saved login tokens
+1. Test on your system first
+2. Include your macOS version and hardware in bug reports
+3. Check existing issues before creating new ones
 
-### 2. SpotX Installer (`spotx-sharmanhall.sh`)
+## 📝 License
 
-Custom SpotX installer that downloads and applies modifications to Spotify.
+MIT License - see [LICENSE](LICENSE) file for details.
 
-**Features:**
-- Installs specific Spotify version (1.2.68.528.g50f97d42)
-- Applies SpotX modifications (ad blocking, dev mode, experimental features)
-- Creates automatic backups
-- Removes podcasts and blocks updates
+## 👨‍💻 Author
 
-## Quick Start
+Created by [@sharmanhall](https://github.com/tyhallcsu)
 
-### Setting Up Multi-Account Switching
+---
 
-1. **Make the script executable:**
-   ```bash
-   chmod +x spotify-account-switcher.sh
-   ```
-
-2. **Set up your first account:**
-   - Log into Spotify with Account A
-   - Quit Spotify completely
-   - Save the profile:
-     ```bash
-     ./spotify-account-switcher.sh init work
-     ```
-
-3. **Set up additional accounts:**
-   - Log into Spotify with Account B
-   - Quit Spotify completely
-   - Save the profile:
-     ```bash
-     ./spotify-account-switcher.sh init personal
-     ```
-
-4. **Switch between accounts:**
-   ```bash
-   # Switch to work account
-   ./spotify-account-switcher.sh switch work
-   
-   # Switch to personal account
-   ./spotify-account-switcher.sh switch personal
-   
-   # List all profiles
-   ./spotify-account-switcher.sh list
-   ```
-
-### Installing SpotX
-
-1. **Make the script executable:**
-   ```bash
-   chmod +x spotx-sharmanhall.sh
-   ```
-
-2. **Run the installer:**
-   ```bash
-   ./spotx-sharmanhall.sh
-   ```
-
-This will:
-- Kill any running Spotify processes
-- Create a backup of your current Spotify.app
-- Download and install Spotify version 1.2.68.528.g50f97d42
-- Apply SpotX modifications
-- Launch the modified Spotify
-
-## Usage Commands
-
-### Multi-Account Switcher Commands
-
-```bash
-./spotify-account-switcher.sh list                    # List all saved profiles
-./spotify-account-switcher.sh init <profile>          # Save current state as profile
-./spotify-account-switcher.sh switch <profile>        # Switch to profile and launch
-./spotify-account-switcher.sh remove <profile>        # Delete a profile
-./spotify-account-switcher.sh open-profiles           # Open profiles folder in Finder
-```
-
-### Optional: Create Launcher Scripts
-
-For easier access, create individual launcher scripts:
-
-```bash
-echo './spotify-account-switcher.sh switch work' > Spotify-Work.command
-echo './spotify-account-switcher.sh switch personal' > Spotify-Personal.command
-chmod +x Spotify-*.command
-```
-
-Double-click from Finder or add to Dock for one-click switching.
-
-## How It Works
-
-### Multi-Account Switcher
-
-The switcher maintains separate copies of your Spotify application support folder (`~/Library/Application Support/Spotify`) for each account. When switching:
-
-1. **Kills** any running Spotify processes
-2. **Swaps** the profile folder using rsync (fast, preserves permissions)
-3. **Clears** volatile caches (GPU cache, browser cache, etc.)
-4. **Launches** Spotify with the selected profile
-
-### SpotX Integration
-
-The SpotX installer uses the [SpotX-Bash](https://github.com/SpotX-Official/SpotX-Bash) project to apply modifications:
-
-- **Blocks ads** and telemetry
-- **Enables developer mode** and experimental features  
-- **Removes podcasts** from home screen
-- **Blocks automatic updates**
-- **Preserves functionality** while enhancing experience
-
-## File Structure
-
-```
-spotify-tools/
-├── README.md
-├── spotify-account-switcher.sh    # Main switcher script
-└── spotx-sharmanhall.sh          # SpotX installer script
-```
-
-## Troubleshooting
-
-### Common Issues
-
-**"Spotify support folder not found"**
-- Launch Spotify once, log in, then quit and retry the `init` command
-
-**UI crashes after switching**
-- Uncomment the `--disable-gpu` line in the switcher script
-
-**SpotX installation fails**
-- Ensure you have an active internet connection
-- Try running the script with `/bin/bash` instead of your default shell
-
-### Cache Locations
-
-The switcher clears these cache directories on each switch:
-- `~/Library/Caches/com.spotify.client`
-- `~/Library/Application Support/Spotify/Code Cache`
-- `~/Library/Application Support/Spotify/GPUCache`
-- `~/Library/Application Support/Spotify/ShaderCache`
-- Browser and storage caches
-
-## Credits
-
-- **Multi-Account Switcher**: Original work by [@sharmanhall](https://github.com/tyhallcsu)
-- **SpotX**: Based on [SpotX-Bash](https://github.com/SpotX-Official/SpotX-Bash) by the SpotX team
-
-## License
-
-MIT License - feel free to modify and distribute as needed.
-
-## Contributing
-
-Pull requests and issues welcome! Please test on your system before submitting changes.
+**Like this tool?** Give it a ⭐ and share with other multi-account Spotify users!
