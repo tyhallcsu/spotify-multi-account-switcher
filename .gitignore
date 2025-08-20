@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Personal launcher scripts (optional - users might want to commit these)
+# Spotify-*.command
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local test files
+test-*
