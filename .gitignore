@@ -20,8 +20,8 @@ Thumbs.db
 *.temp
 *~
 
-# Personal launcher scripts (optional)
-Spotify-*.command
+# Personal launcher scripts (optional - users might want to commit these)
+# Spotify-*.command
 
 # IDE files
 .vscode/
