@@ -31,3 +31,5 @@ Thumbs.db
 
 # Local test files
 test-*
+# Swift Package Manager build output
+.build/

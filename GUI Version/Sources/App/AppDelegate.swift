@@ -1,6 +1,7 @@
 // AppDelegate.swift (if needed for additional app lifecycle management)
 import Cocoa
 import SwiftUI
+import UserNotifications
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {

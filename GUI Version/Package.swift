@@ -1,11 +1,11 @@
-// Package.swift (if using Swift Package Manager)
 // swift-tools-version: 5.7
+// Package.swift (Swift Package Manager build of the GUI version)
 import PackageDescription
 
 let package = Package(
     name: "SpotifyAccountSwitcher",
     platforms: [
-        .macOS(.v12)
+        .macOS(.v13)
     ],
     products: [
         .executable(
@@ -22,19 +22,5 @@ let package = Package(
             dependencies: [],
             path: "Sources"
         ),
-        .testTarget(
-            name: "SpotifyAccountSwitcherTests",
-            dependencies: ["SpotifyAccountSwitcher"],
-            path: "Tests"
-        ),
     ]
 )
-
-
-
-
-
-
-
-
-

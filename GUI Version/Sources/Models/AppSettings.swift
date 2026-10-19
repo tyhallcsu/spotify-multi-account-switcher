@@ -1,4 +1,5 @@
 // AppSettings.swift
+import AppKit
 import Foundation
 import Combine
 

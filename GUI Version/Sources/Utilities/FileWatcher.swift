@@ -20,7 +20,8 @@ class FileWatcher: ObservableObject {
     private func startWatching() {
         let url = URL(fileURLWithPath: path)
         
-        guard let fd = open(url.path, O_EVTONLY) else {
+        let fd = open(url.path, O_EVTONLY)
+        guard fd >= 0 else {
             print("Failed to open file descriptor for \(path)")
             return
         }

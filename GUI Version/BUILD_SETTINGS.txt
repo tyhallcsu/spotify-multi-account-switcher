@@ -3,7 +3,7 @@
 Key Build Settings:
 - PRODUCT_NAME = "Spotify Account Switcher"
 - PRODUCT_BUNDLE_IDENTIFIER = "com.sharmanhall.spotify-account-switcher"
-- MACOSX_DEPLOYMENT_TARGET = "12.0"
+- MACOSX_DEPLOYMENT_TARGET = "13.0"
 - SWIFT_VERSION = "5.0"
 - CODE_SIGN_STYLE = "Automatic"
 - DEVELOPMENT_TEAM = "YOUR_TEAM_ID"
