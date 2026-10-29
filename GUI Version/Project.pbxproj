@@ -1,0 +1,13 @@
+// Project.pbxproj configurations (Key settings for Xcode project)
+/*
+Key Build Settings:
+- PRODUCT_NAME = "Spotify Account Switcher"
+- PRODUCT_BUNDLE_IDENTIFIER = "com.sharmanhall.spotify-account-switcher"
+- MACOSX_DEPLOYMENT_TARGET = "12.0"
+- SWIFT_VERSION = "5.0"
+- CODE_SIGN_STYLE = "Automatic"
+- DEVELOPMENT_TEAM = "YOUR_TEAM_ID"
+- CODE_SIGN_IDENTITY = "Apple Development"
+- ENABLE_HARDENED_RUNTIME = "YES"
+- ENABLE_APP_SANDBOX = "NO" (Required for script execution)
+*/
